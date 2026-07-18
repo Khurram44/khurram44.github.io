@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GymSecure Pitch Deck</title>
+    <style>
+      :root {
+        --bg: #eef5ff;
+        --panel: #ffffff;
+        --ink: #172033;
+        --muted: #667085;
+        --blue: #2563eb;
+        --blue-soft: #dbeafe;
+        --teal: #0d9488;
+        --green: #16a34a;
+        --amber: #f59e0b;
+        --red: #ef4444;
+        --line: #d8e3f4;
+        --shadow: 0 24px 70px rgba(37, 99, 235, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Poppins, Roboto, Inter, "Segoe UI", Arial, sans-serif;
+      }
+
+      button {
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .deck {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: fixed;
+        top: 18px;
+        left: 50%;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: min(920px, calc(100% - 32px));
+        padding: 10px 12px;
+        border: 1px solid rgba(216, 227, 244, 0.9);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 14px 40px rgba(23, 32, 51, 0.08);
+        backdrop-filter: blur(16px);
+        transform: translateX(-50%);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 2px 10px 2px 4px;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 50%;
+        color: #fff;
+        background: var(--blue);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
+      }
+
+      .progress {
+        flex: 1;
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #edf2fa;
+      }
+
+      .progress span {
+        display: block;
+        width: 16.66%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--blue), #60a5fa);
+        transition: width 200ms ease;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .nav-buttons button {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        color: var(--ink);
+        background: #f3f7fd;
+      }
+
+      .slide {
+        display: grid;
+        min-height: 100vh;
+        padding: 96px 28px 42px;
+        place-items: center;
+      }
+
+      .slide-inner {
+        position: relative;
+        display: grid;
+        width: min(1180px, 100%);
+        min-height: min(720px, calc(100vh - 150px));
+        overflow: hidden;
+        border: 1px solid rgba(216, 227, 244, 0.95);
+        border-radius: 34px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        grid-template-columns: 0.92fr 1.08fr;
+      }
+
+      .content {
+        padding: 62px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 22px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        color: #1d4ed8;
+        background: var(--blue-soft);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 720px;
+        margin-bottom: 22px;
+        font-size: clamp(42px, 5.2vw, 72px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        max-width: 820px;
+        margin-bottom: 20px;
+        font-size: clamp(34px, 4vw, 54px);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin-bottom: 8px;
+        font-size: 17px;
+      }
+
+      .lead {
+        max-width: 700px;
+        margin-bottom: 34px;
+        color: var(--muted);
+        font-size: clamp(18px, 2vw, 23px);
+        line-height: 1.55;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink);
+        background: #fff;
+        font-weight: 600;
+      }
+
+      .hero-visual {
+        position: relative;
+        display: grid;
+        place-items: center;
+        padding: 42px;
+        background: #f8fbff;
+      }
+
+      .dashboard-card {
+        width: min(500px, 100%);
+        padding: 26px;
+        border: 1px solid #dbe7f7;
+        border-radius: 28px;
+        background: #fff;
+        box-shadow: 0 24px 70px rgba(23, 32, 51, 0.12);
+      }
+
+      .mini-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+      }
+
+      .mini-title {
+        font-weight: 700;
+      }
+
+      .live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: currentColor;
+        box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.14);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .stat {
+        padding: 18px;
+        border: 1px solid #e5edf8;
+        border-radius: 20px;
+        background: #f8fbff;
+      }
+
+      .stat strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 28px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .chart {
+        display: flex;
+        align-items: end;
+        gap: 9px;
+        height: 150px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid #e5edf8;
+      }
+
+      .bar {
+        flex: 1;
+        min-width: 14px;
+        border-radius: 999px 999px 8px 8px;
+        background: #bfd7ff;
+      }
+
+      .bar.hot {
+        background: var(--blue);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 18px;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 24px;
+        border: 1px solid #dbe7f7;
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 16px 40px rgba(23, 32, 51, 0.06);
+      }
+
+      .icon {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 18px;
+        place-items: center;
+        border-radius: 15px;
+        color: #fff;
+        background: var(--blue);
+        font-weight: 800;
+      }
+
+      .card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .step {
+        position: relative;
+        padding: 22px;
+        border: 1px solid #dbe7f7;
+        border-radius: 24px;
+        background: #f8fbff;
+      }
+
+      .step-number {
+        display: inline-grid;
+        width: 34px;
+        height: 34px;
+        margin-bottom: 18px;
+        place-items: center;
+        border-radius: 50%;
+        color: #fff;
+        background: var(--blue);
+        font-weight: 700;
+      }
+
+      .benefit-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .benefit {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 16px 18px;
+        border: 1px solid #dbe7f7;
+        border-radius: 18px;
+        background: #fff;
+      }
+
+      .benefit span:first-child {
+        font-weight: 700;
+      }
+
+      .benefit span:last-child {
+        color: var(--muted);
+      }
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+        margin-top: 28px;
+      }
+
+      .screen {
+        min-height: 230px;
+        padding: 22px;
+        border: 1px solid #dbe7f7;
+        border-radius: 26px;
+        background: #f8fbff;
+      }
+
+      .screen-row {
+        display: grid;
+        grid-template-columns: 42px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #e5edf8;
+      }
+
+      .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #dbeafe;
+      }
+
+      .tag {
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: #e0f2fe;
+        color: #0369a1;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .pilot {
+        grid-template-columns: 1fr 0.82fr;
+      }
+
+      .offer {
+        display: grid;
+        align-content: center;
+        padding: 42px;
+        background: #f8fbff;
+      }
+
+      .price-card {
+        padding: 30px;
+        border-radius: 28px;
+        color: #fff;
+        background: var(--blue);
+        box-shadow: 0 22px 50px rgba(37, 99, 235, 0.22);
+      }
+
+      .price-card strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 34px;
+      }
+
+      .price-card p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.82);
+        line-height: 1.55;
+      }
+
+      .statement {
+        margin-top: 22px;
+        padding: 18px 20px;
+        border: 1px solid #dbe7f7;
+        border-radius: 18px;
+        background: #f8fbff;
+        color: var(--ink);
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.55;
+      }
+
+      .footer-note {
+        position: absolute;
+        right: 32px;
+        bottom: 24px;
+        color: #98a2b3;
+        font-size: 13px;
+      }
+
+      @media (max-width: 900px) {
+        .topbar {
+          top: 10px;
+        }
+
+        .slide {
+          padding: 78px 12px 24px;
+        }
+
+        .slide-inner,
+        .hero,
+        .pilot {
+          grid-template-columns: 1fr;
+          min-height: auto;
+          border-radius: 24px;
+        }
+
+        .content,
+        .offer,
+        .hero-visual {
+          padding: 28px;
+        }
+
+        .grid-2,
+        .grid-3,
+        .flow,
+        .preview-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .brand span {
+          display: none;
+        }
+
+        .benefit {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media print {
+        .topbar {
+          display: none;
+        }
+
+        .slide {
+          min-height: auto;
+          page-break-after: always;
+          padding: 0;
+        }
+
+        .slide-inner {
+          min-height: 100vh;
+          box-shadow: none;
+          border-radius: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        <span>GymSecure Pitch</span>
+      </div>
+      <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+      <div class="nav-buttons">
+        <button type="button" id="prev" aria-label="Previous slide">‹</button>
+        <button type="button" id="next" aria-label="Next slide">›</button>
+      </div>
+    </div>
+
+    <main class="deck">
+      <section class="slide" id="slide-1">
+        <div class="slide-inner hero">
+          <div class="content">
+            <div class="eyebrow">GymSecure for Pakistani gyms</div>
+            <h1>AI attendance and automated member follow-ups.</h1>
+            <p class="lead">
+              GymSecure helps gym owners control attendance, renewals, member follow-ups, and branch performance from one smart dashboard.
+            </p>
+            <div class="cta-row">
+              <div class="pill">Face attendance</div>
+              <div class="pill">Fee reminders</div>
+              <div class="pill">Risk alerts</div>
+            </div>
+            <div class="statement">
+              Every member entry is tracked. Every renewal is visible. Every doubtful detection is brought to management.
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="dashboard-card">
+              <div class="mini-header">
+                <div class="mini-title">Fitness First - Gulberg</div>
+                <div class="live-badge"><span class="dot"></span> Live</div>
+              </div>
+              <div class="stats">
+                <div class="stat"><strong>252</strong><span>Active members</span></div>
+                <div class="stat"><strong>43</strong><span>Today check-ins</span></div>
+                <div class="stat"><strong>₨ 1.08M</strong><span>Expected fees</span></div>
+                <div class="stat"><strong>7</strong><span>Risk members</span></div>
+              </div>
+              <div class="chart">
+                <div class="bar" style="height: 42%"></div>
+                <div class="bar" style="height: 55%"></div>
+                <div class="bar" style="height: 36%"></div>
+                <div class="bar hot" style="height: 82%"></div>
+                <div class="bar hot" style="height: 95%"></div>
+                <div class="bar" style="height: 58%"></div>
+                <div class="bar" style="height: 46%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-note">01 / 06</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-2">
+        <div class="slide-inner">
+          <div class="content">
+            <div class="eyebrow">The problem</div>
+            <h2>Manual systems make revenue and attendance difficult to control.</h2>
+            <p class="lead">
+              In many gyms, attendance, fee reminders, member renewals, and follow-ups depend on staff memory. As the branch gets busy, missed entries and unpaid renewals become hard to catch.
+            </p>
+            <div class="grid-3">
+              <div class="card">
+                <div class="icon">₨</div>
+                <h3>Renewals get delayed</h3>
+                <p>Members often continue after expiry because staff has to manually remember due dates and follow-ups.</p>
+              </div>
+              <div class="card">
+                <div class="icon">!</div>
+                <h3>Attendance is not live</h3>
+                <p>Owners usually find out late when members become irregular or stop visiting the gym.</p>
+              </div>
+              <div class="card">
+                <div class="icon">✓</div>
+                <h3>Identity is weakly checked</h3>
+                <p>Manual systems cannot reliably catch unknown visitors, wrong check-ins, or doubtful attendance records.</p>
+              </div>
+            </div>
+            <div class="statement">
+              GymSecure is built to reduce missed renewals, unreliable attendance, and silent member drop-off.
+            </div>
+          </div>
+          <div class="footer-note">02 / 06</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-3">
+        <div class="slide-inner">
+          <div class="content">
+            <div class="eyebrow">The solution</div>
+            <h2>AI attendance connected with automated WhatsApp reminders.</h2>
+            <p class="lead">
+              GymSecure recognizes members as they enter, marks verified attendance, highlights suspicious detections, and sends timely WhatsApp messages for renewals and member engagement.
+            </p>
+            <div class="flow">
+              <div class="step">
+                <div class="step-number">1</div>
+                <h3>AI detects members</h3>
+                <p>Camera captures the person and checks whether they match a registered member.</p>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <h3>Attendance is verified</h3>
+                <p>Known members are marked present once per day. Unknown or low-confidence faces go to alerts.</p>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <h3>Owner gets visibility</h3>
+                <p>Daily check-ins, peak hours, alerts, fee status, and member risk indicators are visible.</p>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <h3>WhatsApp follows up</h3>
+                <p>Renewal reminders, birthdays, welcome messages, and expired-member follow-ups are automated.</p>
+              </div>
+            </div>
+            <div class="statement">
+              GymSecure does not only record attendance. It turns attendance into business action.
+            </div>
+          </div>
+          <div class="footer-note">03 / 06</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-4">
+        <div class="slide-inner">
+          <div class="content">
+            <div class="eyebrow">Business value</div>
+            <h2>A practical control room for gym owners and branch managers.</h2>
+            <p class="lead">
+              Clear daily information for member activity, renewals, security, revenue, expenses, and branch performance.
+            </p>
+            <div class="benefit-list">
+              <div class="benefit"><span>AI attendance visibility</span><span>Daily check-ins, peak hours, manual vs verified attendance</span></div>
+              <div class="benefit"><span>Renewal control</span><span>Expected income, paid members, pending renewals, past subscriptions</span></div>
+              <div class="benefit"><span>Risk member alerts</span><span>Members likely to leave, sorted by urgency</span></div>
+              <div class="benefit"><span>Security verification</span><span>Unknown faces and low-confidence detections for approval</span></div>
+              <div class="benefit"><span>Revenue and expenses</span><span>Monthly profit, salaries, rent, daily expenses, shop sales</span></div>
+            </div>
+          </div>
+          <div class="footer-note">04 / 06</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-5">
+        <div class="slide-inner">
+          <div class="content">
+            <div class="eyebrow">Dashboard preview</div>
+            <h2>Designed for fast decisions, not complicated reporting.</h2>
+            <p class="lead">
+              The branch can quickly see who needs attention today and what requires action.
+            </p>
+            <div class="preview-grid">
+              <div class="screen">
+                <h3>Today’s branch snapshot</h3>
+                <div class="screen-row">
+                  <div class="avatar"></div>
+                  <div><strong>Ali Khan</strong><br /><span style="color: var(--muted)">Subscription expires in 3 days</span></div>
+                  <div class="tag">Reminder</div>
+                </div>
+                <div class="screen-row">
+                  <div class="avatar"></div>
+                  <div><strong>Unknown detection</strong><br /><span style="color: var(--muted)">Needs verification</span></div>
+                  <div class="tag">Security</div>
+                </div>
+                <div class="screen-row">
+                  <div class="avatar"></div>
+                  <div><strong>Sara Ahmed</strong><br /><span style="color: var(--muted)">Risk score increased</span></div>
+                  <div class="tag">Contact</div>
+                </div>
+              </div>
+              <div class="screen">
+                <h3>Monthly finance</h3>
+                <div class="stats">
+                  <div class="stat"><strong>₨ 1.08M</strong><span>Expected income</span></div>
+                  <div class="stat"><strong>₨ 760K</strong><span>Received</span></div>
+                  <div class="stat"><strong>₨ 180K</strong><span>Expenses</span></div>
+                  <div class="stat"><strong>₨ 70K</strong><span>Shop sales</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="statement">
+              One dashboard for attendance, renewals, risk members, security alerts, revenue, expenses, and shop sales.
+            </div>
+          </div>
+          <div class="footer-note">05 / 06</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-6">
+        <div class="slide-inner pilot">
+          <div class="content">
+            <div class="eyebrow">Pilot offer</div>
+            <h2>Start with one branch or one camera for 7 days.</h2>
+            <p class="lead">
+              The best way to evaluate GymSecure is to test it on real branch activity: attendance, renewals, alerts, and automated follow-ups.
+            </p>
+            <div class="grid-2">
+              <div class="card">
+                <div class="icon">1</div>
+                <h3>Branch setup</h3>
+                <p>Configure branch, members, fees, attendance camera, and WhatsApp connector.</p>
+              </div>
+              <div class="card">
+                <div class="icon">7</div>
+                <h3>Performance review</h3>
+                <p>Review attendance accuracy, pending renewals, reminders, and branch visibility.</p>
+              </div>
+            </div>
+            <div class="statement">
+              A simple pilot helps the gym owner see value before making a long-term commitment.
+            </div>
+          </div>
+          <div class="offer">
+            <div class="price-card">
+              <strong>7-day branch pilot</strong>
+              <p>Test on real branch activity before committing. If it gives value, continue with monthly branch subscription.</p>
+            </div>
+          </div>
+          <div class="footer-note">06 / 06</div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const progress = document.querySelector("#progress");
+      const clamp = (value) => Math.max(0, Math.min(slides.length - 1, value));
+
+      function currentIndex() {
+        const midpoint = window.scrollY + window.innerHeight / 2;
+        return clamp(slides.findIndex((slide) => slide.offsetTop + slide.offsetHeight > midpoint));
+      }
+
+      function goTo(index) {
+        slides[clamp(index)].scrollIntoView({ behavior: "smooth" });
+      }
+
+      function updateProgress() {
+        progress.style.width = `${((currentIndex() + 1) / slides.length) * 100}%`;
+      }
+
+      document.querySelector("#prev").addEventListener("click", () => goTo(currentIndex() - 1));
+      document.querySelector("#next").addEventListener("click", () => goTo(currentIndex() + 1));
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+          event.preventDefault();
+          goTo(currentIndex() + 1);
+        }
+        if (["ArrowLeft", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          goTo(currentIndex() - 1);
+        }
+      });
+      updateProgress();
+    </script>
+  </body>
+</html>
